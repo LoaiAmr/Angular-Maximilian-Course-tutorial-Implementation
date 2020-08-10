@@ -1,0 +1,30 @@
+<div class="container">
+  <label class="btn btn-info active">
+    <input type="radio" name="status" value="all" checked="checked"> All
+</label>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <input type="text" value="stable" [(ngModel)]="filteredStatus">
+      <br>
+      <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
+      <br><br>
+      <h3>App Status:  {{ appStatus | async }}</h3>
+      <hr>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let server of servers | filteredString: filteredStatus: 'status' "
+          [ngClass]="getStatusClasses(server)">
+          <span
+            class="badge badge-pill badge-secondary">
+            {{ server.status }}
+          </span>
+          <strong>{{ server.name | shortenPipe: 15 }}</strong> | 
+          {{ server.instanceType | uppercase }} | 
+          {{ server.started | date: 'fullDate' | uppercase}}        <!-- paramatrize  pipe and chanining -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- <app-filtering-table></app-filtering-table> -->
